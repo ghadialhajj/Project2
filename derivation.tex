@@ -15,16 +15,16 @@
 \usepackage[most]{tcolorbox}
 
 \begin{document}
-    \begin{align*}
-        &p(Y,\bm{y}\vert X) = p(Y\vert X)p(\bm{y}\vert X,Y)
-    \end{align*}
+\begin{align*}
+    &p(Y,\bm{y}\vert X) = p(Y\vert X)p(\bm{y}\vert X,Y)
+\end{align*}
 
 
-    \begin{align*}
-        p(\bm{y}\vert X,Y) &= p(\bm{y}\vert X)  \text{ assuming $\bm{y}$ is conditionally independent of $Y$ given $X$}\\
-        &= p(y_1, y_2,...,y_N \vert X) \\
-        &=p(y_1\vert X)p(y_2\vert X, y_1)...p(y_N\vert X, y_1, y_2,...,y_N) \notag
-    \end{align*}
+\begin{align*}
+    p(\bm{y}\vert X,Y) &= p(\bm{y}\vert X)  \text{ assuming $\bm{y}$ is conditionally independent of $Y$ given $X$}\\
+    &= p(y_1, y_2,...,y_N \vert X) \\
+    &=p(y_1\vert X)p(y_2\vert X, y_1)...p(y_N\vert X, y_1, y_2,...,y_N) \notag
+\end{align*}
 
 
 % \begin{align*}
@@ -32,57 +32,57 @@
 %     &= p(y_1\vert x_1) \text{ assuming $y_1$ is conditionally independent of $\{x_i\}_{i=2}^{i=N}$ given $x_1$}
 % \end{align*}
 
-    In general, we can assume that $y_j$ is conditionally independent of $\{x_i\}_{i\neq j}$ and $\{y_i\}_{i\neq j}$ given $x_j$
-    \begin{align*}
-        p(y_j\vert X, y_1,...,y_{j-1}) &= p(y_j\vert x_j)
-    \end{align*}
+In general, we can assume that $y_j$ is conditionally independent of $\{x_i\}_{i\neq j}$ and $\{y_i\}_{i\neq j}$ given $x_j$
+\begin{align*}
+    p(y_j\vert X, y_1,...,y_{j-1}) &= p(y_j\vert x_j)
+\end{align*}
 
-    Then, the probability $p(\bm{y}\vert X,Y)$ can be written as:
-    \begin{align*}
-        p(\bm{y}\vert X,Y) &= p(y_1\vert x_1)p(y_2\vert x_2)...p(y_N\vert x_N)\\
-        &= \prod_{i=1}^{N} p(y_i\vert x_i)\\
-    \end{align*}
+Then, the probability $p(\bm{y}\vert X,Y)$ can be written as:
+\begin{align*}
+    p(\bm{y}\vert X,Y) &= p(y_1\vert x_1)p(y_2\vert x_2)...p(y_N\vert x_N)\\
+    &= \prod_{i=1}^{N} p(y_i\vert x_i)\\
+\end{align*}
 
-    Therefore the joint probability $p(Y,\bm{y}\vert X)$ can be written as:
-    \begin{align*}
-        p(Y,\bm{y}\vert X) &= p(Y\vert X)\prod_{i=1}^{N} p(y_i\vert x_i)\\
-    \end{align*}
+Therefore the joint probability $p(Y,\bm{y}\vert X)$ can be written as:
+\begin{align*}
+    p(Y,\bm{y}\vert X) &= p(Y\vert X)\prod_{i=1}^{N} p(y_i\vert x_i)\\
+\end{align*}
 
-    With this formulation, our objective is to maximize the likelihood (is this correct?):
+With this formulation, our objective is to maximize the likelihood (is this correct?):
 
-    $$\underset{\theta}{\text{max}} \ p(Y\vert X)\prod_{i=1}^{N} p(y_i\vert x_i)$$
+$$\underset{\theta}{\text{max}} \ p(Y\vert X)\prod_{i=1}^{N} p(y_i\vert x_i)$$
 
-    Assuming a uniform distribution over the instance labels, i.e. $p(y_i \vert x_i) \sim \text{uniform}\{0,1\}$. This implies $p(y_i=1 \vert x_i) = p(y_i=0 \vert x_i) = 0.5$, then
+Assuming a uniform distribution over the instance labels, i.e. $p(y_i \vert x_i) \sim \text{uniform}\{0,1\}$. This implies $p(y_i=1 \vert x_i) = p(y_i=0 \vert x_i) = 0.5$, then
 
-    \begin{align}
-        p(Y,\bm{y}\vert X) &= p(Y\vert X)\prod_{i=1}^{N} p(y_i\vert x_i) \label{eq:joint} \\
-        &= p(Y\vert X)\prod_{i=1}^{N} 0.5 \notag \\
-        &= p(Y\vert X)0.5^N \notag \\
-        &= 0.5^N * p(Y\vert X) \notag
-    \end{align}
+\begin{align}
+    p(Y,\bm{y}\vert X) &= p(Y\vert X)\prod_{i=1}^{N} p(y_i\vert x_i) \label{eq:joint} \\
+    &= p(Y\vert X)\prod_{i=1}^{N} 0.5 \notag \\
+    &= p(Y\vert X)0.5^N \notag \\
+    &= 0.5^N * p(Y\vert X) \notag
+\end{align}
 
-    Thus, maximising the likelihood with such an assumed instance-level distribution amounts to simply maximising the following:
+Thus, maximising the likelihood with such an assumed instance-level distribution amounts to simply maximising the following:
 
-    \begin{align*}
-        p(Y,\bm{y}\vert X) &= p(Y\vert X)\\
-    \end{align*}
+\begin{align*}
+    p(Y,\bm{y}\vert X) &= p(Y\vert X)\\
+\end{align*}
 
-    This is actually what one does in a standard MIL setup, including plain DeepRC.
-    \newpage
+This is actually what one does in a standard MIL setup, including plain DeepRC.
+\newpage
 
-    On the other hand, if one has some information about individual $p(y_i|x_i)$'s for the different instances or a subset thereof, then one can include it in equation \ref{eq:joint}.
+On the other hand, if one has some information about individual $p(y_i|x_i)$'s for the different instances or a subset thereof, then one can include it in equation \ref{eq:joint}.
 
-    In this case, maximising the likelihood \ref{eq:joint} can be done by minimising the negative logarithm of it as follows:
+In this case, maximising the likelihood \ref{eq:joint} can be done by minimising the negative logarithm of it as follows:
 
 
-    \begin{align*}
-        &\underset{\Theta}{\text{max}}\ p(Y,\bm{y}\vert X) \\
-        \equiv\ &\underset{\Theta}{\text{max}}\ p(Y\vert X)\prod_{i=1}^{N} p(y_i\vert x_i) \\
-        \equiv\ &\underset{\Theta}{\text{min}}\ - \text{log} [p(Y\vert X)\prod_{i=1}^{N} p(y_i\vert x_i)]\\
-        \equiv\ &\underset{\Theta}{\text{min}}\ - \left[\text{log}\ p(Y\vert X) + \text{log}\prod_{i=1}^{N} p(y_i\vert x_i)\right]\\
-        \equiv\ &\underset{\Theta}{\text{min}}\ - \left[\text{log}\ p_\Theta(Y\vert X) + \sum_{i=1}^{N} \text{log}\ p(z_i\vert m_i)\right]\\
-    \end{align*}
+\begin{align*}
+    &\underset{\Theta}{\text{max}}\ p(Y,\bm{y}\vert X) \\
+    \equiv\ &\underset{\Theta}{\text{max}}\ p(Y\vert X)\prod_{i=1}^{N} p(y_i\vert x_i) \\
+    \equiv\ &\underset{\Theta}{\text{min}}\ - \text{log} [p(Y\vert X)\prod_{i=1}^{N} p(y_i\vert x_i)]\\
+    \equiv\ &\underset{\Theta}{\text{min}}\ - \left[\text{log}\ p(Y\vert X) + \text{log}\prod_{i=1}^{N} p(y_i\vert x_i)\right]\\
+    \equiv\ &\underset{\Theta}{\text{min}}\ - \left[\text{log}\ p_\Theta(Y\vert X) + \sum_{i=1}^{N} \text{log}\ p(z_i\vert m_i)\right]\\
+\end{align*}
 
-    Now, assuming both conditional probabilities $p(Y\vert X)$ and $p(y\vert x_i)$ are binomial distributions with some labels, then one could apply a CE loss on each, which is basically what we have done until now.
+Now, assuming both conditional probabilities $p(Y\vert X)$ and $p(y\vert x_i)$ are binomial distributions with some labels, then one could apply a CE loss on each, which is basically what we have done until now.
 
 \end{document}
